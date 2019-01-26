@@ -1,4 +1,5 @@
 import { Component, OnInit } from "@angular/core";
+import {ProductService} from './product.service';
 import { IProduct } from "./shared/product.interface";
 
 @Component({
@@ -7,14 +8,19 @@ import { IProduct } from "./shared/product.interface";
   styleUrls: ["./app.component.css"]
 })
 export class AppComponent implements OnInit{
+
+  constructor(private productService: ProductService){}
+
   pageTitle: string = "Product Details";
   imageWidth: number = 150;
   message: string = '';
   showImg: boolean = false;
   _filterText: string = "";
+
   get filterText(): string {
     return this._filterText;
   }
+  
   set filterText(value: string) {
     this._filterText = value;
     this.filteredProducts = this.filterText && this.filterText.length > 0
@@ -22,29 +28,8 @@ export class AppComponent implements OnInit{
       : this.products;
   }
   filteredProducts: IProduct[];
-  products: IProduct[] = [
-    {
-      id: "1",
-      name: "Hammer",
-      code: "hammer-202020",
-      releaseData: new Date("10/01/2019"),
-      price: 20,
-      description: "Hammer is used to hamerr",
-      starRating: 2,
-      imageUrl: "https://bardoloi.com/assets/hammer-safe/hammer.png"
-    },
-    {
-      id: "2",
-      name: "Nails",
-      code: "nails-202020",
-      releaseData: new Date("10/01/2019"),
-      price: 20,
-      description: "nails is used to hamerr",
-      starRating: 3.6,
-      imageUrl:
-        "https://contentgrid.homedepot-static.com/hdus/en_US/DTCCOMNEW/fetch/DIY_Projects_and_Ideas/Tools_and_Hardware/Guides/nails-guide-625200-hero.jpg"
-    }
-  ];
+  products: IProduct[] = this.productService.getProducts();
+
   toggleImage(): void {
     this.showImg = !this.showImg;
   }
@@ -56,6 +41,7 @@ export class AppComponent implements OnInit{
   ngOnInit(): void {
     this.filteredProducts = this.performFilter(this.filterText);
   }
+
   ratingclicked(value: string): void{
     this.message = value;
   }
