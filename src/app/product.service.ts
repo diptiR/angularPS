@@ -1,33 +1,39 @@
 import { Injectable } from "@angular/core";
 import { IProduct } from "./shared/product.interface";
+import { Observable, throwError } from "rxjs";
+import { HttpClient, HttpErrorResponse } from "@angular/common/http";
+import { catchError, tap, map } from "rxjs/operators";
 
 @Injectable({
   providedIn: "root"
 })
 export class ProductService {
-  getProducts(): IProduct[] {
-    return [
-      {
-        id: "1",
-        name: "Hammer",
-        code: "hammer-202020",
-        releaseData: new Date("10/01/2019"),
-        price: 20,
-        description: "Hammer is used to hamerr",
-        starRating: 2,
-        imageUrl: "https://bardoloi.com/assets/hammer-safe/hammer.png"
-      },
-      {
-        id: "2",
-        name: "Nails",
-        code: "nails-202020",
-        releaseData: new Date("10/01/2019"),
-        price: 20,
-        description: "nails is used to hamerr",
-        starRating: 3.6,
-        imageUrl:
-          "https://contentgrid.homedepot-static.com/hdus/en_US/DTCCOMNEW/fetch/DIY_Projects_and_Ideas/Tools_and_Hardware/Guides/nails-guide-625200-hero.jpg"
-      }
-    ];
+  constructor(private http: HttpClient) {}
+  productUrl: string = "api/products/products.json";
+  handleError(err: HttpErrorResponse) {
+    let errorMessage = '';
+    if (err.error instanceof ErrorEvent) {
+      // A client-side or network error occurred. Handle it accordingly.
+      errorMessage = `An error occurred: ${err.error.message}`;
+    } else {
+      // The backend returned an unsuccessful response code.
+      // The response body may contain clues as to what went wrong,
+      errorMessage = `Server returned code: ${err.status}, error message is: ${err.message}`;
+    }
+    console.error(errorMessage);
+    return throwError(errorMessage);
+  }
+
+  getProducts(): Observable<IProduct[]> {
+    return this.http.get<IProduct[]>(this.productUrl).pipe(
+      tap(data => console.log("All: " + JSON.stringify(data))),
+      catchError(this.handleError)
+    );
+  }
+
+  getProduct(id: number): Observable<IProduct | undefined> {
+    return this.getProducts().pipe(
+      map((products: IProduct[]) => products.find(p => p.productId === id))
+    );
   }
 }
