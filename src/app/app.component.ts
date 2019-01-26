@@ -9,6 +9,7 @@ import { IProduct } from "./shared/product.interface";
 export class AppComponent implements OnInit{
   pageTitle: string = "Product Details";
   imageWidth: number = 150;
+  message: string = '';
   showImg: boolean = false;
   _filterText: string = "";
   get filterText(): string {
@@ -29,7 +30,7 @@ export class AppComponent implements OnInit{
       releaseData: new Date("10/01/2019"),
       price: 20,
       description: "Hammer is used to hamerr",
-      starRating: 4.2,
+      starRating: 2,
       imageUrl: "https://bardoloi.com/assets/hammer-safe/hammer.png"
     },
     {
@@ -39,7 +40,7 @@ export class AppComponent implements OnInit{
       releaseData: new Date("10/01/2019"),
       price: 20,
       description: "nails is used to hamerr",
-      starRating: 4.2,
+      starRating: 3.6,
       imageUrl:
         "https://contentgrid.homedepot-static.com/hdus/en_US/DTCCOMNEW/fetch/DIY_Projects_and_Ideas/Tools_and_Hardware/Guides/nails-guide-625200-hero.jpg"
     }
@@ -54,5 +55,8 @@ export class AppComponent implements OnInit{
   }
   ngOnInit(): void {
     this.filteredProducts = this.performFilter(this.filterText);
+  }
+  ratingclicked(value: string): void{
+    this.message = value;
   }
 }

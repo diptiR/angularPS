@@ -4,6 +4,7 @@
     <div class="container-fluid">
         <div>Filter by: <input type="text" [(ngModel)]="filterText" /></div>
         <div>Filtered by: {{filterText}}</div>
+        <div>{{message}}</div>
       <table cell-padding="2" border="2">
         <thead>
           <td>
@@ -32,7 +33,7 @@
           <td>{{ p.releaseData | date }}</td>
           <td>{{ p.price | currency: "INR" }}</td>
           <td>{{ p.description }}</td>
-          <td>{{ p.starRating }}</td>
+          <td><star-rating [rating]='p.starRating' (ratingClicked)='ratingclicked($event)'></star-rating></td>
         </tr>
       </table>
     </div>
