@@ -1,0 +1,43 @@
+
+<div class="card">
+    <div class="card-header">{{ pageTitle }}</div>
+    <div class="card-body" *ngIf="products && products.length">
+      <div class="container-fluid">
+          <div>Filter by: <input type="text" [(ngModel)]="filterText" /></div>
+          <div>Filtered by: {{filterText}}</div>
+          <div>{{message}}</div>
+        <table cell-padding="2" border="2">
+          <thead>
+            <td>
+              <button type="button" class="btn btn-light" (click)="toggleImage()">
+                {{showImg ? "Hide":"Show"}} Image
+              </button>
+            </td>
+            <td>Name</td>
+            <td>Product code</td>
+            <td>Release date</td>
+            <td>Price</td>
+            <td>Description</td>
+            <td>Star rating</td>
+          </thead>
+          <tr *ngFor="let p of filteredProducts">
+            <td>
+              <img
+                *ngIf="showImg"
+                src="{{ p.imageUrl }}"
+                [title]="p.description"
+                [style.width.px]="imageWidth"
+              />
+            </td>
+            <td>{{ p.productName | uppercase }}</td>
+            <td>{{ p.productCode | convertToSpace : "-" }}</td>
+            <td>{{ p.releaseData | date }}</td>
+            <td>{{ p.price | currency: "INR" }}</td>
+            <td>{{ p.description }}</td>
+            <td><star-rating [rating]='p.starRating' (ratingClicked)='ratingclicked($event)'></star-rating></td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </div>
+  
