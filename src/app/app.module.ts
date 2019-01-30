@@ -10,6 +10,7 @@ import { ConvertToSpacePipe } from "./shared/convertToSpaces";
 import { StarRatingComponent } from "./shared/star.component";
 import { ProductComponent } from "./product/product.component";
 import { WelcomeComponent } from "./home/welcome.component";
+import { ProductDetailsComponent } from "src/app/product/product-details.component";
 
 @NgModule({
   declarations: [
@@ -17,6 +18,7 @@ import { WelcomeComponent } from "./home/welcome.component";
     ConvertToSpacePipe,
     StarRatingComponent,
     ProductComponent,
+    ProductDetailsComponent,
     WelcomeComponent
   ],
   imports: [
@@ -26,7 +28,7 @@ import { WelcomeComponent } from "./home/welcome.component";
     HttpClientModule,
     RouterModule.forRoot([
       { path: "product", component: ProductComponent },
-      { path: "product/:id", component: ProductComponent },
+      { path: "product/:id", component: ProductDetailsComponent },
       { path: "welcome", component: WelcomeComponent },
       { path: "", component: WelcomeComponent, pathMatch: "full" },
       { path: "**", component: WelcomeComponent, pathMatch: "full" },

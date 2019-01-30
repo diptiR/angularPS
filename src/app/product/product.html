@@ -29,7 +29,7 @@
                 [style.width.px]="imageWidth"
               />
             </td>
-            <td>{{ p.productName | uppercase }}</td>
+            <td><a (click)='showDetails(p)'>{{ p.productName | uppercase }}</a></td>
             <td>{{ p.productCode | convertToSpace : "-" }}</td>
             <td>{{ p.releaseData | date }}</td>
             <td>{{ p.price | currency: "INR" }}</td>

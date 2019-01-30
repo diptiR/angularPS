@@ -1,13 +1,14 @@
 import { Component } from "@angular/core";
 import { ProductService } from "./product.service";
 import { IProduct } from "../shared/product.interface";
+import { Router } from '@angular/router';
 
 @Component({
     "templateUrl": "./product.html"
 })
 
 export class ProductComponent{
-    constructor(private productService: ProductService) {}
+    constructor(private productService: ProductService, private route: Router) {}
 
     pageTitle: string = "Product Details";
     imageWidth: number = 150;
@@ -39,6 +40,9 @@ export class ProductComponent{
           -1
         );
       });
+    }
+    showDetails(product): void{
+      this.route.navigate(['/product', product.productId]);
     }
     ngOnInit(): void {
       this.productService.getProducts().subscribe(products => {

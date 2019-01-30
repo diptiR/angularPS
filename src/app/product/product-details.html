@@ -1,0 +1,9 @@
+<div *ngIf="selectedProduct">
+    <div><img [src]='selectedProduct.imageUrl' [style.width.px]="'100'" /></div>
+    <div>Product Name: {{selectedProduct.productName}}</div>
+    <div>Product Code: {{selectedProduct.productCode}}</div>
+    <div>Description: {{selectedProduct.description}}</div>
+    <div>Price: {{selectedProduct.price}}</div>
+    <div>Release Date: {{selectedProduct.releaseDate}}</div>
+    <div>Star rating: <star-rating [rating]='selectedProduct.starRating'></star-rating></div>
+</div>
