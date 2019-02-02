@@ -11,6 +11,7 @@ import { StarRatingComponent } from "./shared/star.component";
 import { ProductComponent } from "./product/product.component";
 import { WelcomeComponent } from "./home/welcome.component";
 import { ProductDetailsComponent } from "src/app/product/product-details.component";
+import { ProductDetailsGuard } from "./product/ProductDetailsGuard";
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { ProductDetailsComponent } from "src/app/product/product-details.compone
     HttpClientModule,
     RouterModule.forRoot([
       { path: "product", component: ProductComponent },
-      { path: "product/:id", component: ProductDetailsComponent },
+      { path: "product/:id", component: ProductDetailsComponent,
+    canActivate: [ProductDetailsGuard] },
       { path: "welcome", component: WelcomeComponent },
       { path: "", component: WelcomeComponent, pathMatch: "full" },
       { path: "**", component: WelcomeComponent, pathMatch: "full" },
