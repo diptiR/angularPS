@@ -12,6 +12,7 @@ import { ProductComponent } from "./product/product.component";
 import { WelcomeComponent } from "./home/welcome.component";
 import { ProductDetailsComponent } from "src/app/product/product-details.component";
 import { ProductDetailsGuard } from "./product/ProductDetailsGuard";
+import { GraphComponent } from './graph/graph.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { ProductDetailsGuard } from "./product/ProductDetailsGuard";
     StarRatingComponent,
     ProductComponent,
     ProductDetailsComponent,
-    WelcomeComponent
+    WelcomeComponent,
+    GraphComponent
   ],
   imports: [
     BrowserModule,
@@ -29,6 +31,7 @@ import { ProductDetailsGuard } from "./product/ProductDetailsGuard";
     HttpClientModule,
     RouterModule.forRoot([
       { path: "product", component: ProductComponent },
+      { path: "graph", component: GraphComponent },
       { path: "product/:id", component: ProductDetailsComponent,
     canActivate: [ProductDetailsGuard] },
       { path: "welcome", component: WelcomeComponent },
